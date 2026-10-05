@@ -229,17 +229,25 @@ function voucher(id){
 const clean=s=>String(s).replace(/[\\\/:*?"<>|\u0000-\u001f]+/g,' ').replace(/\s+/g,' ').trim();
 const dm=d=>d.slice(8,10)+'.'+d.slice(5,7);
 const fileName=b=>`[CF] - ${clean(b.hotel)} - ${clean(b.guest)} - ${dm(b.ci)} ${dm(b.co)}.pdf`;
+function loadJs(u){return new Promise((ok,no)=>{const e=document.createElement('script');e.src=u;e.onload=ok;e.onerror=no;document.head.appendChild(e)})}
+async function libs(){
+ if(!window.html2canvas)await loadJs('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js');
+ if(!window.jspdf)await loadJs('https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js');
+ if(!window.html2canvas||!window.jspdf)throw new Error('lib')}
+async function saveFile(name,buf){
+ const dl=window.claude&&claude.use?await claude.use('downloads').catch(()=>null):null;
+ if(dl)return dl.save({filename:name,data:buf});
+ const u=URL.createObjectURL(new Blob([buf],{type:'application/pdf'})),a=document.createElement('a');
+ a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
 async function pdf(id){
  const b=S.find(x=>x.id===id),btn=$('dl');btn.disabled=true;btn.textContent=tr('dling');
  try{
-  const dl=window.claude&&await claude.use('downloads');
-  if(!dl){toast(tr('dlNo'));return}
-  if(!window.html2canvas||!window.jspdf)throw new Error('lib');
+  await libs();
   await document.fonts.ready;
   const c=await html2canvas($('voucher'),{scale:2,backgroundColor:'#fff',useCORS:true});
   const doc=new jspdf.jsPDF('p','mm','a4'),h=c.height*210/c.width,img=c.toDataURL('image/jpeg',.95);
   for(let i=0;i<Math.max(1,Math.ceil((h-1)/297));i++){if(i)doc.addPage();doc.addImage(img,'JPEG',0,-i*297,210,h)}
-  await dl.save({filename:fileName(b),data:doc.output('arraybuffer')});
+  await saveFile(fileName(b),doc.output('arraybuffer'));
   toast(tr('dlOk'));
  }catch(e){if(!e||e.code!=='declined')toast(tr('dlErr'))}
  finally{const n=$('dl');if(n){n.disabled=false;n.textContent=tr('dl')}}
