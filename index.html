@@ -80,7 +80,7 @@ table.t{width:100%;border-collapse:collapse;min-width:820px}
 #voucher td{padding:8px 10px;border:1px solid #d8e4e8;vertical-align:top}
 #voucher td:first-child{width:34%;background:#e8f7fb;font-weight:600;color:#0087a0}
 #voucher .pol{margin-top:14px;border:1px solid #d8e4e8;border-left:4px solid #ED1C24;padding:10px 14px;white-space:pre-wrap}
-#voucher .pol b{color:#A2161B;display:block;margin-bottom:2px}
+#voucher .pol .nrt{color:#ED1C24;font-weight:700;text-transform:uppercase}#voucher .pol b{color:#A2161B;display:block;margin-bottom:2px}
 #voucher .ft{margin-top:auto;border-top:3px solid #00AAC9;padding-top:10px;font-size:11px;color:#5d727a;text-align:center;line-height:1.6}#voucher .ft b{color:#1b2a30;font-size:12px}#voucher .nt{margin-top:18px;padding-bottom:18px;font-size:12px;color:#5d727a;text-align:center}
 .lang{display:flex;border:1px solid var(--pri);border-radius:8px;overflow:hidden}.lang button{border:0;background:none;padding:6px 11px;font-weight:700;color:var(--pri-d)}.lang button.on{background:var(--pri);color:var(--on)}
 body{min-height:100vh;display:flex;flex-direction:column}main.wrap{flex:1;width:100%}
@@ -107,11 +107,11 @@ const D={vi:{sub:'KHANHTRAVEL · Hệ thống điều hành khách lẻ',navBk:'
 cCode:'Mã đặt chỗ',cHotel:'Khách sạn',cGuest:'Khách',cDates:'CI – CO',cRoom:'Phòng',cPay:'Thanh toán',cAct:'Thao tác',cBd:'Ngày đặt',voucher:'Phiếu XN',payBtn:'Thanh toán',editBtn:'Sửa',delBtn:'Xóa',empty:'Chưa có đặt dịch vụ nào phù hợp.',noData:'Không có dữ liệu.',
 night:n=>'đêm',adt:'NL',chd:'TE',adults:'người lớn',kids:'trẻ em',kT:'Tổng giá trị đặt dịch vụ',kP:'Đã thanh toán',kR:'Còn phải thanh toán',cTot:'Tổng tiền',cPaid:'Đã thanh toán',cRem:'Còn lại',cSt:'Trạng thái',rec:'Ghi nhận',
 mNew:'Tạo đặt dịch vụ',mEdit:'Sửa đặt dịch vụ',close:'Đóng',secH:'Khách sạn',secB:'Đặt chỗ',secInc:'Dịch vụ bao gồm',secPol:'Chính sách hoàn hủy',
-fHotel:'Tên khách sạn *',fTel:'Số điện thoại',fAddr:'Địa chỉ',fBd:'Ngày đặt dịch vụ *',fCode:'Mã đặt chỗ *',fGuest:'Tên khách *',fCi:'Check-in (CI) *',fCo:'Check-out (CO) *',fAd:'Người lớn',fKd:'Trẻ em',fRm:'Số lượng phòng',fType:'Hạng phòng *',fRate:'Room rate (VNĐ/phòng/đêm) *',vat:'VAT',bf:'Ăn sáng',cancel:'Hủy',save:'Lưu',
+fHotel:'Tên khách sạn *',fTel:'Số điện thoại',fAddr:'Địa chỉ',fBd:'Ngày đặt dịch vụ *',fCode:'Mã đặt chỗ *',fGuest:'Tên khách *',fCi:'Ngày check-in (CI) *',fCo:'Ngày check-out (CO) *',fCiT:'Giờ check-in (CI)',fCoT:'Giờ check-out (CO)',fBed:'Loại phòng *',fAd:'Người lớn',fKd:'Trẻ em',fRm:'Số lượng phòng',fType:'Hạng phòng *',fRate:'Room rate (VNĐ/phòng/đêm) *',vat:'VAT',bf:'Ăn sáng',cancel:'Hủy',save:'Lưu',
 eReq:'Vui lòng nhập đủ các trường có dấu *.',eDate:'Ngày check-out phải sau ngày check-in.',eDup:'Mã đặt chỗ đã tồn tại.',saved:'Đã lưu đặt dịch vụ',
 delT:'Xóa đặt dịch vụ',delQ:'Xóa {0}? Thao tác này không thể hoàn tác.',keep:'Giữ lại',
 pT:'Thanh toán',pHist:'Lịch sử thanh toán',pNone:'Chưa có khoản thanh toán.',pNew:'Ghi nhận khoản mới',pDate:'Ngày',pAmt:'Số tiền (VNĐ)',pMeth:'Hình thức',pNote:'Ghi chú',mBank:'Chuyển khoản',mCash:'Tiền mặt',mCard:'Thẻ',pErr:'Nhập ngày và số tiền hợp lệ.',pOk:'Đã ghi nhận thanh toán',rooms:'phòng',
-vTitle:'PHIẾU XÁC NHẬN ĐẶT PHÒNG',vSub:'Hotel Booking Confirmation',vModal:'Phiếu xác nhận',vHotel:'Tên khách sạn',vAddr:'Địa chỉ',vTel:'Số điện thoại',vGuest:'Tên khách',vCi:'Check-in (CI)',vCo:'Check-out (CO)',vGuests:'Số lượng khách',vRooms:'Số lượng phòng',vType:'Hạng phòng',vInc:'Dịch vụ bao gồm',vNone:'Không bao gồm',vBd:'Ngày đặt dịch vụ',vNote:'Vui lòng xuất trình phiếu này khi nhận phòng.',vIssued:'Ngày xuất phiếu',
+vTitle:'PHIẾU XÁC NHẬN ĐẶT PHÒNG',vSub:'Hotel Booking Confirmation',vModal:'Phiếu xác nhận',vHotel:'Tên khách sạn',vAddr:'Địa chỉ',vTel:'Số điện thoại',vGuest:'Tên khách',vCi:'Check-in (CI)',vCo:'Check-out (CO)',vGuests:'Số lượng khách',vRooms:'Số lượng phòng',vType:'Hạng phòng',vBed:'Loại phòng',vInc:'Dịch vụ bao gồm',vNone:'Không bao gồm',vBd:'Ngày đặt dịch vụ',vNote:'Vui lòng xuất trình phiếu này khi nhận phòng.',vIssued:'Ngày xuất phiếu',
 dl:'Tải phiếu PDF',dling:'Đang tạo PDF…',dlNo:'Môi trường này chưa hỗ trợ tải file',dlOk:'Đã tải phiếu xác nhận',dlErr:'Không tạo được PDF, vui lòng thử lại',
 fAddrL:'Địa chỉ',fTelL:'Điện thoại',fFaxL:'Fax',
 pol:'Hủy hoặc đổi ngày trước 3 ngày so với ngày nhận phòng: miễn phí.\nHủy trong vòng 3 ngày hoặc không đến (no-show): tính phí 100% đêm đầu tiên.'},
@@ -119,11 +119,11 @@ en:{sub:'KHANHTRAVEL · FIT (individual traveller) operations',navBk:'Bookings',
 cCode:'Booking code',cHotel:'Hotel',cGuest:'Guest',cDates:'CI – CO',cRoom:'Room',cPay:'Payment',cAct:'Actions',cBd:'Booked on',voucher:'Voucher',payBtn:'Payment',editBtn:'Edit',delBtn:'Delete',empty:'No matching bookings.',noData:'No data.',
 night:n=>n>1?'nights':'night',adt:'Adt',chd:'Chd',adults:n=>n>1?'adults':'adult',kids:n=>n>1?'children':'child',kT:'Total booking value',kP:'Paid',kR:'Outstanding',cTot:'Total',cPaid:'Paid',cRem:'Balance',cSt:'Status',rec:'Record',
 mNew:'New booking',mEdit:'Edit booking',close:'Close',secH:'Hotel',secB:'Reservation',secInc:'Inclusions',secPol:'Cancellation policy',
-fHotel:'Hotel name *',fTel:'Phone',fAddr:'Address',fBd:'Booking date *',fCode:'Booking code *',fGuest:'Guest name *',fCi:'Check-in (CI) *',fCo:'Check-out (CO) *',fAd:'Adults',fKd:'Children',fRm:'Number of rooms',fType:'Room type *',fRate:'Room rate (VND/room/night) *',vat:'VAT',bf:'Breakfast',cancel:'Cancel',save:'Save',
+fHotel:'Hotel name *',fTel:'Phone',fAddr:'Address',fBd:'Booking date *',fCode:'Booking code *',fGuest:'Guest name *',fCi:'Check-in date (CI) *',fCo:'Check-out date (CO) *',fCiT:'Check-in time (CI)',fCoT:'Check-out time (CO)',fBed:'Room type *',fAd:'Adults',fKd:'Children',fRm:'Number of rooms',fType:'Room category *',fRate:'Room rate (VND/room/night) *',vat:'VAT',bf:'Breakfast',cancel:'Cancel',save:'Save',
 eReq:'Please fill in all fields marked *.',eDate:'Check-out must be after check-in.',eDup:'Booking code already exists.',saved:'Booking saved',
 delT:'Delete booking',delQ:'Delete {0}? This cannot be undone.',keep:'Keep',
 pT:'Payment',pHist:'Payment history',pNone:'No payments recorded.',pNew:'Record a payment',pDate:'Date',pAmt:'Amount (VND)',pMeth:'Method',pNote:'Note',mBank:'Bank transfer',mCash:'Cash',mCard:'Card',pErr:'Enter a valid date and amount.',pOk:'Payment recorded',rooms:'room(s)',
-vTitle:'HOTEL BOOKING CONFIRMATION',vSub:'Phiếu xác nhận đặt phòng',vModal:'Confirmation voucher',vHotel:'Hotel name',vAddr:'Address',vTel:'Phone',vGuest:'Guest name',vCi:'Check-in (CI)',vCo:'Check-out (CO)',vGuests:'Number of guests',vRooms:'Number of rooms',vType:'Room type',vInc:'Inclusions',vNone:'Not included',vBd:'Booking date',vNote:'Please present this voucher at check-in.',vIssued:'Issued on',
+vTitle:'HOTEL BOOKING CONFIRMATION',vSub:'Phiếu xác nhận đặt phòng',vModal:'Confirmation voucher',vHotel:'Hotel name',vAddr:'Address',vTel:'Phone',vGuest:'Guest name',vCi:'Check-in (CI)',vCo:'Check-out (CO)',vGuests:'Number of guests',vRooms:'Number of rooms',vType:'Room category',vBed:'Room type',vInc:'Inclusions',vNone:'Not included',vBd:'Booking date',vNote:'Please present this voucher at check-in.',vIssued:'Issued on',
 dl:'Download PDF voucher',dling:'Creating PDF…',dlNo:'File download is not available in this environment',dlOk:'Voucher downloaded',dlErr:'Could not create the PDF, please try again',
 fAddrL:'Address',fTelL:'Tel',fFaxL:'Fax',
 pol:'Cancellation or date change at least 3 days before check-in: free of charge.\nCancellation within 3 days or no-show: 100% of the first night will be charged.'}};
@@ -138,9 +138,9 @@ const tr=(k,...a)=>{const v=D[lang][k];return typeof v==='function'?v(...a):v};
 let S=[],view='bk',q='',flt='',logoSrc=document.querySelector('.logo img').src;
 function load(){try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
  if(!Array.isArray(S)){const P=D.vi.pol;S=[
- {id:1,bd:'2026-10-01',hotel:'Vinpearl Resort & Spa Phú Quốc',addr:'Bãi Dài, Gành Dầu, Phú Quốc, Kiên Giang',tel:'0297 3 636 666',code:'KT-261001-001',guest:'NGUYEN VAN AN',ci:'2026-10-20',co:'2026-10-23',adults:2,kids:1,rooms:1,type:'Deluxe Ocean View',rate:2800000,vat:true,bf:true,pol:P,pays:[{d:'2026-10-05',a:3000000,m:'mBank',n:'30%'}]},
- {id:2,bd:'2026-10-03',hotel:'Khách sạn Mường Thanh Luxury Đà Nẵng',addr:'270 Võ Nguyên Giáp, Sơn Trà, Đà Nẵng',tel:'0236 3 928 888',code:'KT-261003-002',guest:'TRAN THI BICH',ci:'2026-11-02',co:'2026-11-04',adults:2,kids:0,rooms:1,type:'Superior Twin',rate:1500000,vat:true,bf:false,pol:P,pays:[]}]}
- S.forEach(b=>{b.bd=b.bd||'';b.pays=b.pays||[]})}
+ {id:1,bd:'2026-10-01',hotel:'Vinpearl Resort & Spa Phú Quốc',addr:'Bãi Dài, Gành Dầu, Phú Quốc, Kiên Giang',tel:'0297 3 636 666',code:'KT-261001-001',guest:'NGUYEN VAN AN',ci:'2026-10-20',ciT:'14:00',co:'2026-10-23',coT:'12:00',bed:'Double',adults:2,kids:1,rooms:1,type:'Deluxe Ocean View',rate:2800000,vat:true,bf:true,pol:P,pays:[{d:'2026-10-05',a:3000000,m:'mBank',n:'30%'}]},
+ {id:2,bd:'2026-10-03',hotel:'Khách sạn Mường Thanh Luxury Đà Nẵng',addr:'270 Võ Nguyên Giáp, Sơn Trà, Đà Nẵng',tel:'0236 3 928 888',code:'KT-261003-002',guest:'TRAN THI BICH',ci:'2026-11-02',ciT:'14:00',co:'2026-11-04',coT:'12:00',bed:'Twin',adults:2,kids:0,rooms:1,type:'Superior',rate:1500000,vat:true,bf:false,pol:P,pays:[]}]}
+ S.forEach(b=>{b.bd=b.bd||'';b.ciT=b.ciT||'';b.coT=b.coT||'';b.bed=b.bed||'';b.pays=b.pays||[]})}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const nights=b=>Math.max(1,Math.round((new Date(b.co)-new Date(b.ci))/864e5)||1);
 const total=b=>b.rate*b.rooms*nights(b);
@@ -158,12 +158,15 @@ function applyLang(){
 function tab(v){view=v;$('n-bk').classList.toggle('on',v==='bk');$('n-pay').classList.toggle('on',v==='pay');render()}
 function list(){const k=q.trim().toLowerCase();return S.filter(b=>(!k||[b.hotel,b.code,b.guest].join(' ').toLowerCase().includes(k))&&(!flt||st(b)[0]===flt))}
 const opts=a=>`<option value="">${a}</option><option value="un">${tr('un')}</option><option value="pa">${tr('pa')}</option><option value="ok">${tr('ok')}</option>`;
+const BEDS=['Twin','Double','Triple','Family'];
+const dt=(d,t)=>dmy(d)+(t?' '+t:'');
+const isNR=p=>/khong hoan huy|non[- ]?refundable/.test(String(p).toLowerCase().replace(/đ/g,'d').normalize('NFD').replace(/[\u0300-\u036f]/g,''));
 const gl=b=>`${b.adults} ${tr('adt')}${b.kids?', '+b.kids+' '+tr('chd'):''}`;
 function render(){
  const rows=list();let h='';
  if(view==='bk'){
   h+=`<div class="bar"><input type="search" id="q" placeholder="${esc(tr('search'))}" value="${esc(q)}" aria-label="${esc(tr('search'))}"><select id="fl">${opts(tr('allSt'))}</select><span class="sp"></span><button class="btn" onclick="edit()">${tr('create')}</button></div>`;
-  h+=rows.length?`<div class="tw"><table class="t"><thead><tr><th>${tr('cCode')}</th><th>${tr('cBd')}</th><th>${tr('cHotel')}</th><th>${tr('cGuest')}</th><th>${tr('cDates')}</th><th>${tr('cRoom')}</th><th>${tr('cPay')}</th><th>${tr('cAct')}</th></tr></thead><tbody>${rows.map(b=>{const s=st(b);return `<tr><td><b>${esc(b.code)}</b></td><td>${dmy(b.bd)}</td><td><b>${esc(b.hotel)}</b><small>${esc(b.addr)}</small></td><td>${esc(b.guest)}<small>${gl(b)}</small></td><td>${dmy(b.ci)} – ${dmy(b.co)}<small>${nights(b)} ${tr('night',nights(b))}</small></td><td>${b.rooms} × ${esc(b.type)}</td><td><span class="tag ${s[0]}">${s[1]}</span><small>${vnd(total(b))}</small></td><td><div class="act"><button class="btn sm" onclick="voucher(${b.id})">${tr('voucher')}</button><button class="btn sm ghost" onclick="payM(${b.id})">${tr('payBtn')}</button><button class="btn sm ghost" onclick="edit(${b.id})">${tr('editBtn')}</button><button class="btn sm red" onclick="del(${b.id})">${tr('delBtn')}</button></div></td></tr>`}).join('')}</tbody></table></div>`:`<div class="tw"><div class="empty">${tr('empty')}</div></div>`;
+  h+=rows.length?`<div class="tw"><table class="t"><thead><tr><th>${tr('cCode')}</th><th>${tr('cBd')}</th><th>${tr('cHotel')}</th><th>${tr('cGuest')}</th><th>${tr('cDates')}</th><th>${tr('cRoom')}</th><th>${tr('cPay')}</th><th>${tr('cAct')}</th></tr></thead><tbody>${rows.map(b=>{const s=st(b);return `<tr><td><b>${esc(b.code)}</b></td><td>${dmy(b.bd)}</td><td><b>${esc(b.hotel)}</b><small>${esc(b.addr)}</small></td><td>${esc(b.guest)}<small>${gl(b)}</small></td><td>${dt(b.ci,b.ciT)} –<br>${dt(b.co,b.coT)}<small>${nights(b)} ${tr('night',nights(b))}</small></td><td>${b.rooms} × ${esc(b.type)}<small>${esc(b.bed)}</small></td><td><span class="tag ${s[0]}">${s[1]}</span><small>${vnd(total(b))}</small></td><td><div class="act"><button class="btn sm" onclick="voucher(${b.id})">${tr('voucher')}</button><button class="btn sm ghost" onclick="payM(${b.id})">${tr('payBtn')}</button><button class="btn sm ghost" onclick="edit(${b.id})">${tr('editBtn')}</button><button class="btn sm red" onclick="del(${b.id})">${tr('delBtn')}</button></div></td></tr>`}).join('')}</tbody></table></div>`:`<div class="tw"><div class="empty">${tr('empty')}</div></div>`;
  }else{
   const T=S.reduce((s,b)=>s+total(b),0),P=S.reduce((s,b)=>s+paid(b),0);
   h+=`<div class="cards"><div class="kpi"><span>${tr('kT')}</span><strong>${vnd(T)}</strong></div><div class="kpi g"><span>${tr('kP')}</span><strong>${vnd(P)}</strong></div><div class="kpi r"><span>${tr('kR')}</span><strong>${vnd(Math.max(0,T-P))}</strong></div></div>`;
@@ -181,17 +184,17 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')close_()});
 const fld=(l,id,v,t='text',x='')=>`<div class="f"><label for="${id}">${l}</label><input id="${id}" type="${t}" value="${esc(v)}" ${x}></div>`;
 const xb=()=>`<button class="x" onclick="close_()" aria-label="${esc(tr('close'))}">×</button>`;
 function edit(id){
- const b=S.find(x=>x.id===id)||{bd:today(),hotel:'',addr:'',tel:'',code:'KT-'+today().slice(2).replace(/-/g,'')+'-'+String(S.length+1).padStart(3,'0'),guest:'',ci:'',co:'',adults:2,kids:0,rooms:1,type:'',rate:'',vat:true,bf:true,pol:tr('pol')};
+ const b=S.find(x=>x.id===id)||{bd:today(),hotel:'',addr:'',tel:'',code:'KT-'+today().slice(2).replace(/-/g,'')+'-'+String(S.length+1).padStart(3,'0'),guest:'',ci:'',ciT:'14:00',co:'',coT:'12:00',bed:'Double',adults:2,kids:0,rooms:1,type:'',rate:'',vat:true,bf:true,pol:tr('pol')};
  open_(`<div class="mh"><h2>${id?tr('mEdit'):tr('mNew')}</h2>${xb()}</div><div class="mb">
  <div class="sec">${tr('secH')}</div><div class="g2">${fld(tr('fHotel'),'f_hotel',b.hotel)}${fld(tr('fTel'),'f_tel',b.tel,'tel')}<div class="f w">${fld(tr('fAddr'),'f_addr',b.addr)}</div></div>
- <div class="sec">${tr('secB')}</div><div class="g2">${fld(tr('fBd'),'f_bd',b.bd,'date')}${fld(tr('fCode'),'f_code',b.code)}${fld(tr('fGuest'),'f_guest',b.guest)}${fld(tr('fCi'),'f_ci',b.ci,'date')}${fld(tr('fCo'),'f_co',b.co,'date')}${fld(tr('fAd'),'f_ad',b.adults,'number','min="1"')}${fld(tr('fKd'),'f_kd',b.kids,'number','min="0"')}${fld(tr('fRm'),'f_rm',b.rooms,'number','min="1"')}${fld(tr('fType'),'f_type',b.type)}${fld(tr('fRate'),'f_rate',b.rate,'number','min="0" step="1000"')}</div>
+ <div class="sec">${tr('secB')}</div><div class="g2">${fld(tr('fBd'),'f_bd',b.bd,'date')}${fld(tr('fCode'),'f_code',b.code)}${fld(tr('fGuest'),'f_guest',b.guest)}${fld(tr('fCi'),'f_ci',b.ci,'date')}${fld(tr('fCiT'),'f_ciT',b.ciT,'time')}${fld(tr('fCo'),'f_co',b.co,'date')}${fld(tr('fCoT'),'f_coT',b.coT,'time')}${fld(tr('fAd'),'f_ad',b.adults,'number','min="1"')}${fld(tr('fKd'),'f_kd',b.kids,'number','min="0"')}${fld(tr('fRm'),'f_rm',b.rooms,'number','min="1"')}<div class="f"><label for="f_bed">${tr('fBed')}</label><select id="f_bed">${BEDS.map(x=>`<option ${x===(b.bed||'Double')?'selected':''}>${x}</option>`).join('')}</select></div>${fld(tr('fType'),'f_type',b.type)}${fld(tr('fRate'),'f_rate',b.rate,'number','min="0" step="1000"')}</div>
  <div class="sec">${tr('secInc')}</div><div class="ck"><label><input type="checkbox" id="f_vat" ${b.vat?'checked':''}>${tr('vat')}</label><label><input type="checkbox" id="f_bf" ${b.bf?'checked':''}>${tr('bf')}</label></div>
  <div class="sec">${tr('secPol')}</div><div class="f"><textarea id="f_pol" rows="4" aria-label="${esc(tr('secPol'))}">${esc(b.pol)}</textarea></div><p id="err" role="alert" style="color:var(--red-d);margin:8px 0 0"></p></div>
  <div class="mf"><button class="btn ghost" onclick="close_()">${tr('cancel')}</button><button class="btn" onclick="submit(${id||0})">${tr('save')}</button></div>`)
 }
 function submit(id){
  const v=k=>$('f_'+k).value.trim();
- const b={id:id||Date.now(),bd:v('bd'),hotel:v('hotel'),addr:v('addr'),tel:v('tel'),code:v('code'),guest:v('guest'),ci:v('ci'),co:v('co'),adults:Math.max(1,+v('ad')||1),kids:Math.max(0,+v('kd')||0),rooms:Math.max(1,+v('rm')||1),type:v('type'),rate:+v('rate'),vat:$('f_vat').checked,bf:$('f_bf').checked,pol:$('f_pol').value.trim(),pays:[]};
+ const b={id:id||Date.now(),bd:v('bd'),hotel:v('hotel'),addr:v('addr'),tel:v('tel'),code:v('code'),guest:v('guest'),ci:v('ci'),ciT:v('ciT'),co:v('co'),coT:v('coT'),bed:v('bed'),adults:Math.max(1,+v('ad')||1),kids:Math.max(0,+v('kd')||0),rooms:Math.max(1,+v('rm')||1),type:v('type'),rate:+v('rate'),vat:$('f_vat').checked,bf:$('f_bf').checked,pol:$('f_pol').value.trim(),pays:[]};
  if(!b.bd||!b.hotel||!b.code||!b.guest||!b.ci||!b.co||!b.type||v('rate')===''||!(b.rate>=0))return $('err').textContent=tr('eReq');
  if(b.co<=b.ci)return $('err').textContent=tr('eDate');
  if(S.some(x=>x.code===b.code&&x.id!==b.id))return $('err').textContent=tr('eDup');
@@ -213,6 +216,10 @@ function payM(id){
 function addPay(id){const a=+$('p_a').value;if(!(a>0)||!$('p_d').value)return $('err').textContent=tr('pErr');
  S.find(x=>x.id===id).pays.push({d:$('p_d').value,a,m:$('p_m').value,n:$('p_n').value.trim()});save();render();payM(id);toast(tr('pOk'))}
 function rmPay(id,i){S.find(x=>x.id===id).pays.splice(i,1);save();render();payM(id)}
+function polHtml(b){
+ const p=b.pol===D.vi.pol||b.pol===D.en.pol?tr('pol'):b.pol;
+ if(isNR(p))return `<div class="pol nr"><b>${tr('secPol')}</b><span class="nrt">${esc(p.toLocaleUpperCase(lang==='vi'?'vi':'en'))}</span></div>`;
+ return `<div class="pol"><b>${tr('secPol')}</b>${esc(p)||'–'}</div>`}
 function voucher(id){
  const b=S.find(x=>x.id===id),inc=[b.vat&&tr('vat'),b.bf&&tr('bf')].filter(Boolean).join(', ')||tr('vNone');
  const r=(l,v)=>`<tr><td>${l}</td><td>${v}</td></tr>`;
@@ -220,8 +227,8 @@ function voucher(id){
  open_(`<div class="mh"><h2>${tr('vModal')} · ${esc(b.code)}</h2>${xb()}</div>
  <div class="vw"><div id="voucher"><div class="vh"><img src="${logoSrc}" alt="KHANHTRAVEL"><div><b style="color:#00AAC9;font-size:14px">${CO.name}</b></div></div>
  <h1>${tr('vTitle')}</h1><div class="sub">${tr('vSub')}</div><div class="code"><span>${esc(b.code)}</span></div>
- <table>${r(tr('vBd'),dmy(b.bd))}${r(tr('vHotel'),'<b>'+esc(b.hotel)+'</b>')}${r(tr('vAddr'),esc(b.addr)||'–')}${r(tr('vTel'),esc(b.tel)||'–')}${r(tr('vGuest'),'<b>'+esc(b.guest)+'</b>')}${r(tr('vCi'),dmy(b.ci))}${r(tr('vCo'),dmy(b.co)+' ('+nights(b)+' '+tr('night',nights(b))+')')}${r(tr('vGuests'),guests)}${r(tr('vRooms'),b.rooms)}${r(tr('vType'),esc(b.type))}${r(tr('vInc'),inc)}</table>
- <div class="pol"><b>${tr('secPol')}</b>${esc(b.pol===D.vi.pol||b.pol===D.en.pol?tr('pol'):b.pol)||'–'}</div>
+ <table>${r(tr('vBd'),dmy(b.bd))}${r(tr('vHotel'),'<b>'+esc(b.hotel)+'</b>')}${r(tr('vAddr'),esc(b.addr)||'–')}${r(tr('vTel'),esc(b.tel)||'–')}${r(tr('vGuest'),'<b>'+esc(b.guest)+'</b>')}${r(tr('vCi'),'<b>'+dt(b.ci,b.ciT)+'</b>')}${r(tr('vCo'),'<b>'+dt(b.co,b.coT)+'</b>'+' ('+nights(b)+' '+tr('night',nights(b))+')')}${r(tr('vGuests'),guests)}${r(tr('vRooms'),b.rooms)}${r(tr('vBed'),esc(b.bed)||'–')}${r(tr('vType'),esc(b.type))}${r(tr('vInc'),inc)}</table>
+ ${polHtml(b)}
  <div class="nt">${tr('vNote')} · ${tr('vIssued')}: ${dmy(today())}</div>
  <div class="ft"><b>${CO.name}</b><br>${tr('fAddrL')}: ${CO.addr}<br>${tr('fTelL')}: ${CO.tel} · ${tr('fFaxL')}: ${CO.fax}</div></div></div>
  <div class="mf" style="border-radius:0 0 12px 12px"><button class="btn ghost" onclick="close_()">${tr('close')}</button><button class="btn" id="dl" onclick="pdf(${id})">${tr('dl')}</button></div>`)
