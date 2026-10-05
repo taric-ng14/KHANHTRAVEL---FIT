@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KHANHTRAVEL - FIT Operation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--bg:#f2f7f9;--panel:#fff;--ink:#16252b;--muted:#5d727a;--line:#d8e4e8;--pri:#00AAC9;--pri-d:#0087a0;--pri-bg:#e3f6fa;--red:#ED1C24;--red-d:#A2161B;--red-bg:#fdeaea;--good:#1b8a4b;--good-bg:#e2f5ea;--warn:#b86e00;--warn-bg:#fff2dc;--on:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a1e;--panel:#162329;--ink:#e8f2f5;--muted:#9bb2ba;--line:#294049;--pri:#17B7D1;--pri-d:#0e93aa;--pri-bg:#12303a;--red:#ff4b52;--red-d:#ff7a80;--red-bg:#3a1a1c;--good:#4fcf8a;--good-bg:#12311f;--warn:#f0b04a;--warn-bg:#352a12}}
+:root[data-theme="dark"]{--bg:#0e1a1e;--panel:#162329;--ink:#e8f2f5;--muted:#9bb2ba;--line:#294049;--pri:#17B7D1;--pri-d:#0e93aa;--pri-bg:#12303a;--red:#ff4b52;--red-d:#ff7a80;--red-bg:#3a1a1c;--good:#4fcf8a;--good-bg:#12311f;--warn:#f0b04a;--warn-bg:#352a12}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 14px/1.5 "Be Vietnam Pro",system-ui,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+header.top{background:var(--panel);border-bottom:3px solid var(--pri);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.hin{max-width:1180px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{background:#fff;border-radius:8px;padding:2px 6px;display:flex}
+.logo img{height:46px;display:block}
+.ttl b{font-size:18px;display:block;line-height:1.2}.ttl span{color:var(--muted);font-size:12px}
+nav{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+nav button{background:none;border:0;padding:9px 16px;border-radius:8px;font-weight:600;color:var(--muted)}
+nav button.on{background:var(--pri);color:var(--on)}
+.wrap{max-width:1180px;margin:0 auto;padding:16px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.bar input[type=search],.bar select{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);min-width:200px}
+.sp{flex:1}
+.btn{background:var(--pri);color:var(--on);border:0;border-radius:8px;padding:9px 16px;font-weight:600}
+.btn:hover{background:var(--pri-d)}
+.btn.red{background:var(--red)}.btn.red:hover{background:var(--red-d)}
+.btn.ghost{background:var(--panel);color:var(--pri-d);border:1px solid var(--pri)}
+.btn.ghost:hover{background:var(--pri-bg)}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn:disabled{opacity:.6;cursor:wait}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:8px;padding:12px 14px}
+.kpi.r{border-left-color:var(--red)}.kpi.g{border-left-color:var(--good)}
+.kpi span{color:var(--muted);font-size:12px;display:block}.kpi strong{font-size:20px}
+.tw{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow-x:auto}
+table.t{width:100%;border-collapse:collapse;min-width:820px}
+.t th{background:var(--pri-bg);color:var(--pri-d);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.03em;padding:10px 12px;white-space:nowrap}
+.t td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+.t tr:hover td{background:var(--pri-bg)}
+.t .num{text-align:right;white-space:nowrap}
+.t small{color:var(--muted);display:block}
+.act{display:flex;gap:6px;flex-wrap:wrap}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.tag.un{background:var(--red-bg);color:var(--red-d)}.tag.pa{background:var(--warn-bg);color:var(--warn)}.tag.ok{background:var(--good-bg);color:var(--good)}
+.empty{padding:36px;text-align:center;color:var(--muted)}
+.prog{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:4px;min-width:90px}.prog i{display:block;height:100%;background:var(--good)}
+.ov{position:fixed;inset:0;background:rgba(10,25,30,.6);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:calc(20px + env(safe-area-inset-top,0px)) 12px calc(20px + env(safe-area-inset-bottom,0px));z-index:20}
+.ov.show{display:flex}
+.modal{background:var(--panel);border-radius:12px;width:100%;max-width:760px;border-top:4px solid var(--pri)}
+.mh{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+.mh h2{margin:0;font-size:17px}.x{background:none;border:0;font-size:24px;line-height:1;color:var(--muted)}
+.mb{padding:16px 18px}.mf{padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.f label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:3px}
+.f input,.f select,.f textarea{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.f.w{grid-column:1/-1}.ck{display:flex;gap:18px;padding:8px 0}.ck label{display:flex;gap:6px;align-items:center;color:var(--ink);font-size:14px;font-weight:500;margin:0}
+.ck input{width:auto}
+.sec{font-weight:700;color:var(--pri-d);margin:16px 0 8px;font-size:13px;text-transform:uppercase}.sec:first-child{margin-top:0}
+.pl{width:100%;border-collapse:collapse;margin:8px 0}.pl td{padding:6px 4px;border-bottom:1px solid var(--line)}.pl td:nth-child(2){text-align:right}
+.sum{display:flex;gap:16px;flex-wrap:wrap;background:var(--pri-bg);border-radius:8px;padding:10px 14px;margin-bottom:12px}
+.vw{overflow-x:auto;background:#cfd8dc;padding:12px;border-radius:0 0 12px 12px}
+#voucher{display:flex;flex-direction:column;width:794px;min-height:1123px;background:#fff;color:#1b2a30;padding:40px 48px;margin:0 auto;font-family:"Be Vietnam Pro",Arial,sans-serif;font-size:14px;line-height:1.5;position:relative}
+#voucher .vh{display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid #00AAC9;padding-bottom:12px}
+#voucher .vh img{height:64px}
+#voucher .vh>div{text-align:right;font-size:12px;color:#5d727a}
+#voucher h1{text-align:center;font-size:22px;color:#00AAC9;margin:22px 0 2px;letter-spacing:.02em}
+#voucher .sub{text-align:center;color:#5d727a;font-size:12px;margin-bottom:16px}
+#voucher .code{text-align:center;margin-bottom:18px}#voucher .code span{display:inline-block;border:2px solid #ED1C24;color:#A2161B;font-weight:700;font-size:18px;padding:4px 18px;border-radius:6px}
+#voucher table{width:100%;border-collapse:collapse}
+#voucher td{padding:8px 10px;border:1px solid #d8e4e8;vertical-align:top}
+#voucher td:first-child{width:34%;background:#e8f7fb;font-weight:600;color:#0087a0}
+#voucher .pol{margin-top:14px;border:1px solid #d8e4e8;border-left:4px solid #ED1C24;padding:10px 14px;white-space:pre-wrap}
+#voucher .pol b{color:#A2161B;display:block;margin-bottom:2px}
+#voucher .ft{margin-top:auto;border-top:3px solid #00AAC9;padding-top:10px;font-size:11px;color:#5d727a;text-align:center;line-height:1.6}#voucher .ft b{color:#1b2a30;font-size:12px}#voucher .nt{margin-top:18px;padding-bottom:18px;font-size:12px;color:#5d727a;text-align:center}
+.lang{display:flex;border:1px solid var(--pri);border-radius:8px;overflow:hidden}.lang button{border:0;background:none;padding:6px 11px;font-weight:700;color:var(--pri-d)}.lang button.on{background:var(--pri);color:var(--on)}
+body{min-height:100vh;display:flex;flex-direction:column}main.wrap{flex:1;width:100%}
+footer.foot{background:var(--panel);border-top:3px solid var(--pri);margin-top:20px;color:var(--muted);font-size:13px}footer.foot .fi{max-width:1180px;margin:0 auto;padding:14px 16px;display:flex;flex-wrap:wrap;gap:4px 22px;align-items:center}footer.foot b{color:var(--ink)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;z-index:40;display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="hin">
+<div class="logo"><img src="data:image/png;base64,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" alt="KHANH travel"></div>
+<div class="ttl"><b>FIT Operation</b><span id="sub"></span></div>
+<nav><button id="n-bk" class="on" onclick="tab('bk')"></button><button id="n-pay" onclick="tab('pay')"></button>
+<div class="lang" role="group" aria-label="Language"><button id="l-vi" onclick="setLang('vi')">VI</button><button id="l-en" onclick="setLang('en')">EN</button></div></nav>
+</div></header>
+<main class="wrap" id="main"></main>
+<footer class="foot"><div class="fi" id="foot"></div></footer>
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='khanhtravel_fit_v1',LKEY='khanhtravel_fit_lang';
+const CO={name:'CÔNG TY TNHH DU LỊCH KHANH',addr:'635 Nguyễn Kiệm, Phường Đức Nhuận, TP.HCM',tel:'(028) 3845 6425',fax:'(028) 3842 1425'};
+const D={vi:{sub:'KHANHTRAVEL · Hệ thống điều hành khách lẻ',navBk:'Đặt dịch vụ',navPay:'Thanh toán',search:'Tìm khách sạn, mã đặt chỗ, tên khách…',allSt:'Mọi trạng thái thanh toán',allSt2:'Mọi trạng thái',un:'Chưa thanh toán',pa:'Thanh toán một phần',ok:'Đã thanh toán',create:'+ Tạo đặt dịch vụ',
+cCode:'Mã đặt chỗ',cHotel:'Khách sạn',cGuest:'Khách',cDates:'CI – CO',cRoom:'Phòng',cPay:'Thanh toán',cAct:'Thao tác',cBd:'Ngày đặt',voucher:'Phiếu XN',payBtn:'Thanh toán',editBtn:'Sửa',delBtn:'Xóa',empty:'Chưa có đặt dịch vụ nào phù hợp.',noData:'Không có dữ liệu.',
+night:n=>'đêm',adt:'NL',chd:'TE',adults:'người lớn',kids:'trẻ em',kT:'Tổng giá trị đặt dịch vụ',kP:'Đã thanh toán',kR:'Còn phải thanh toán',cTot:'Tổng tiền',cPaid:'Đã thanh toán',cRem:'Còn lại',cSt:'Trạng thái',rec:'Ghi nhận',
+mNew:'Tạo đặt dịch vụ',mEdit:'Sửa đặt dịch vụ',close:'Đóng',secH:'Khách sạn',secB:'Đặt chỗ',secInc:'Dịch vụ bao gồm',secPol:'Chính sách hoàn hủy',
+fHotel:'Tên khách sạn *',fTel:'Số điện thoại',fAddr:'Địa chỉ',fBd:'Ngày đặt dịch vụ *',fCode:'Mã đặt chỗ *',fGuest:'Tên khách *',fCi:'Check-in (CI) *',fCo:'Check-out (CO) *',fAd:'Người lớn',fKd:'Trẻ em',fRm:'Số lượng phòng',fType:'Hạng phòng *',fRate:'Room rate (VNĐ/phòng/đêm) *',vat:'VAT',bf:'Ăn sáng',cancel:'Hủy',save:'Lưu',
+eReq:'Vui lòng nhập đủ các trường có dấu *.',eDate:'Ngày check-out phải sau ngày check-in.',eDup:'Mã đặt chỗ đã tồn tại.',saved:'Đã lưu đặt dịch vụ',
+delT:'Xóa đặt dịch vụ',delQ:'Xóa {0}? Thao tác này không thể hoàn tác.',keep:'Giữ lại',
+pT:'Thanh toán',pHist:'Lịch sử thanh toán',pNone:'Chưa có khoản thanh toán.',pNew:'Ghi nhận khoản mới',pDate:'Ngày',pAmt:'Số tiền (VNĐ)',pMeth:'Hình thức',pNote:'Ghi chú',mBank:'Chuyển khoản',mCash:'Tiền mặt',mCard:'Thẻ',pErr:'Nhập ngày và số tiền hợp lệ.',pOk:'Đã ghi nhận thanh toán',rooms:'phòng',
+vTitle:'PHIẾU XÁC NHẬN ĐẶT PHÒNG',vSub:'Hotel Booking Confirmation',vModal:'Phiếu xác nhận',vHotel:'Tên khách sạn',vAddr:'Địa chỉ',vTel:'Số điện thoại',vGuest:'Tên khách',vCi:'Check-in (CI)',vCo:'Check-out (CO)',vGuests:'Số lượng khách',vRooms:'Số lượng phòng',vType:'Hạng phòng',vInc:'Dịch vụ bao gồm',vNone:'Không bao gồm',vBd:'Ngày đặt dịch vụ',vNote:'Vui lòng xuất trình phiếu này khi nhận phòng.',vIssued:'Ngày xuất phiếu',
+dl:'Tải phiếu PDF',dling:'Đang tạo PDF…',dlNo:'Môi trường này chưa hỗ trợ tải file',dlOk:'Đã tải phiếu xác nhận',dlErr:'Không tạo được PDF, vui lòng thử lại',
+fAddrL:'Địa chỉ',fTelL:'Điện thoại',fFaxL:'Fax',
+pol:'Hủy hoặc đổi ngày trước 3 ngày so với ngày nhận phòng: miễn phí.\nHủy trong vòng 3 ngày hoặc không đến (no-show): tính phí 100% đêm đầu tiên.'},
+en:{sub:'KHANHTRAVEL · FIT (individual traveller) operations',navBk:'Bookings',navPay:'Payments',search:'Search hotel, booking code, guest name…',allSt:'All payment statuses',allSt2:'All statuses',un:'Unpaid',pa:'Partially paid',ok:'Paid',create:'+ New booking',
+cCode:'Booking code',cHotel:'Hotel',cGuest:'Guest',cDates:'CI – CO',cRoom:'Room',cPay:'Payment',cAct:'Actions',cBd:'Booked on',voucher:'Voucher',payBtn:'Payment',editBtn:'Edit',delBtn:'Delete',empty:'No matching bookings.',noData:'No data.',
+night:n=>n>1?'nights':'night',adt:'Adt',chd:'Chd',adults:n=>n>1?'adults':'adult',kids:n=>n>1?'children':'child',kT:'Total booking value',kP:'Paid',kR:'Outstanding',cTot:'Total',cPaid:'Paid',cRem:'Balance',cSt:'Status',rec:'Record',
+mNew:'New booking',mEdit:'Edit booking',close:'Close',secH:'Hotel',secB:'Reservation',secInc:'Inclusions',secPol:'Cancellation policy',
+fHotel:'Hotel name *',fTel:'Phone',fAddr:'Address',fBd:'Booking date *',fCode:'Booking code *',fGuest:'Guest name *',fCi:'Check-in (CI) *',fCo:'Check-out (CO) *',fAd:'Adults',fKd:'Children',fRm:'Number of rooms',fType:'Room type *',fRate:'Room rate (VND/room/night) *',vat:'VAT',bf:'Breakfast',cancel:'Cancel',save:'Save',
+eReq:'Please fill in all fields marked *.',eDate:'Check-out must be after check-in.',eDup:'Booking code already exists.',saved:'Booking saved',
+delT:'Delete booking',delQ:'Delete {0}? This cannot be undone.',keep:'Keep',
+pT:'Payment',pHist:'Payment history',pNone:'No payments recorded.',pNew:'Record a payment',pDate:'Date',pAmt:'Amount (VND)',pMeth:'Method',pNote:'Note',mBank:'Bank transfer',mCash:'Cash',mCard:'Card',pErr:'Enter a valid date and amount.',pOk:'Payment recorded',rooms:'room(s)',
+vTitle:'HOTEL BOOKING CONFIRMATION',vSub:'Phiếu xác nhận đặt phòng',vModal:'Confirmation voucher',vHotel:'Hotel name',vAddr:'Address',vTel:'Phone',vGuest:'Guest name',vCi:'Check-in (CI)',vCo:'Check-out (CO)',vGuests:'Number of guests',vRooms:'Number of rooms',vType:'Room type',vInc:'Inclusions',vNone:'Not included',vBd:'Booking date',vNote:'Please present this voucher at check-in.',vIssued:'Issued on',
+dl:'Download PDF voucher',dling:'Creating PDF…',dlNo:'File download is not available in this environment',dlOk:'Voucher downloaded',dlErr:'Could not create the PDF, please try again',
+fAddrL:'Address',fTelL:'Tel',fFaxL:'Fax',
+pol:'Cancellation or date change at least 3 days before check-in: free of charge.\nCancellation within 3 days or no-show: 100% of the first night will be charged.'}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const vnd=n=>(Number(n)||0).toLocaleString('vi-VN')+' ₫';
+const dmy=d=>d?d.split('-').reverse().join('/'):'–';
+const pad=n=>String(n).padStart(2,'0');
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+let lang='vi';try{lang=localStorage.getItem(LKEY)==='en'?'en':'vi'}catch(e){}
+const tr=(k,...a)=>{const v=D[lang][k];return typeof v==='function'?v(...a):v};
+let S=[],view='bk',q='',flt='',logoSrc=document.querySelector('.logo img').src;
+function load(){try{S=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){S=null}
+ if(!Array.isArray(S)){const P=D.vi.pol;S=[
+ {id:1,bd:'2026-10-01',hotel:'Vinpearl Resort & Spa Phú Quốc',addr:'Bãi Dài, Gành Dầu, Phú Quốc, Kiên Giang',tel:'0297 3 636 666',code:'KT-261001-001',guest:'NGUYEN VAN AN',ci:'2026-10-20',co:'2026-10-23',adults:2,kids:1,rooms:1,type:'Deluxe Ocean View',rate:2800000,vat:true,bf:true,pol:P,pays:[{d:'2026-10-05',a:3000000,m:'mBank',n:'30%'}]},
+ {id:2,bd:'2026-10-03',hotel:'Khách sạn Mường Thanh Luxury Đà Nẵng',addr:'270 Võ Nguyên Giáp, Sơn Trà, Đà Nẵng',tel:'0236 3 928 888',code:'KT-261003-002',guest:'TRAN THI BICH',ci:'2026-11-02',co:'2026-11-04',adults:2,kids:0,rooms:1,type:'Superior Twin',rate:1500000,vat:true,bf:false,pol:P,pays:[]}]}
+ S.forEach(b=>{b.bd=b.bd||'';b.pays=b.pays||[]})}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const nights=b=>Math.max(1,Math.round((new Date(b.co)-new Date(b.ci))/864e5)||1);
+const total=b=>b.rate*b.rooms*nights(b);
+const paid=b=>b.pays.reduce((s,p)=>s+p.a,0);
+function st(b){const t=total(b),p=paid(b);return p<=0?['un',tr('un')]:p<t?['pa',tr('pa')]:['ok',tr('ok')]}
+const mLbl=m=>({mBank:tr('mBank'),mCash:tr('mCash'),mCard:tr('mCard')}[m]||m);
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',3000)}
+function setLang(l){lang=l;try{localStorage.setItem(LKEY,l)}catch(e){}applyLang()}
+function applyLang(){
+ document.documentElement.lang=lang;
+ $('sub').textContent=tr('sub');$('n-bk').textContent=tr('navBk');$('n-pay').textContent=tr('navPay');
+ $('l-vi').classList.toggle('on',lang==='vi');$('l-en').classList.toggle('on',lang==='en');
+ $('foot').innerHTML=`<b>${CO.name}</b><span>${tr('fAddrL')}: ${CO.addr}</span><span>${tr('fTelL')}: ${CO.tel}</span><span>${tr('fFaxL')}: ${CO.fax}</span>`;
+ render()}
+function tab(v){view=v;$('n-bk').classList.toggle('on',v==='bk');$('n-pay').classList.toggle('on',v==='pay');render()}
+function list(){const k=q.trim().toLowerCase();return S.filter(b=>(!k||[b.hotel,b.code,b.guest].join(' ').toLowerCase().includes(k))&&(!flt||st(b)[0]===flt))}
+const opts=a=>`<option value="">${a}</option><option value="un">${tr('un')}</option><option value="pa">${tr('pa')}</option><option value="ok">${tr('ok')}</option>`;
+const gl=b=>`${b.adults} ${tr('adt')}${b.kids?', '+b.kids+' '+tr('chd'):''}`;
+function render(){
+ const rows=list();let h='';
+ if(view==='bk'){
+  h+=`<div class="bar"><input type="search" id="q" placeholder="${esc(tr('search'))}" value="${esc(q)}" aria-label="${esc(tr('search'))}"><select id="fl">${opts(tr('allSt'))}</select><span class="sp"></span><button class="btn" onclick="edit()">${tr('create')}</button></div>`;
+  h+=rows.length?`<div class="tw"><table class="t"><thead><tr><th>${tr('cCode')}</th><th>${tr('cBd')}</th><th>${tr('cHotel')}</th><th>${tr('cGuest')}</th><th>${tr('cDates')}</th><th>${tr('cRoom')}</th><th>${tr('cPay')}</th><th>${tr('cAct')}</th></tr></thead><tbody>${rows.map(b=>{const s=st(b);return `<tr><td><b>${esc(b.code)}</b></td><td>${dmy(b.bd)}</td><td><b>${esc(b.hotel)}</b><small>${esc(b.addr)}</small></td><td>${esc(b.guest)}<small>${gl(b)}</small></td><td>${dmy(b.ci)} – ${dmy(b.co)}<small>${nights(b)} ${tr('night',nights(b))}</small></td><td>${b.rooms} × ${esc(b.type)}</td><td><span class="tag ${s[0]}">${s[1]}</span><small>${vnd(total(b))}</small></td><td><div class="act"><button class="btn sm" onclick="voucher(${b.id})">${tr('voucher')}</button><button class="btn sm ghost" onclick="payM(${b.id})">${tr('payBtn')}</button><button class="btn sm ghost" onclick="edit(${b.id})">${tr('editBtn')}</button><button class="btn sm red" onclick="del(${b.id})">${tr('delBtn')}</button></div></td></tr>`}).join('')}</tbody></table></div>`:`<div class="tw"><div class="empty">${tr('empty')}</div></div>`;
+ }else{
+  const T=S.reduce((s,b)=>s+total(b),0),P=S.reduce((s,b)=>s+paid(b),0);
+  h+=`<div class="cards"><div class="kpi"><span>${tr('kT')}</span><strong>${vnd(T)}</strong></div><div class="kpi g"><span>${tr('kP')}</span><strong>${vnd(P)}</strong></div><div class="kpi r"><span>${tr('kR')}</span><strong>${vnd(Math.max(0,T-P))}</strong></div></div>`;
+  h+=`<div class="bar"><select id="fl" aria-label="${esc(tr('cSt'))}">${opts(tr('allSt2'))}</select></div>`;
+  h+=rows.length?`<div class="tw"><table class="t"><thead><tr><th>${tr('cCode')}</th><th>${tr('cHotel')} / ${tr('cGuest')}</th><th class="num">${tr('cTot')}</th><th class="num">${tr('cPaid')}</th><th class="num">${tr('cRem')}</th><th>${tr('cSt')}</th><th></th></tr></thead><tbody>${rows.map(b=>{const s=st(b),t=total(b),p=paid(b);return `<tr><td><b>${esc(b.code)}</b></td><td>${esc(b.hotel)}<small>${esc(b.guest)}</small></td><td class="num">${vnd(t)}</td><td class="num">${vnd(p)}<div class="prog"><i style="width:${Math.min(100,t?p/t*100:0)}%"></i></div></td><td class="num">${vnd(Math.max(0,t-p))}</td><td><span class="tag ${s[0]}">${s[1]}</span></td><td><button class="btn sm" onclick="payM(${b.id})">${tr('rec')}</button></td></tr>`}).join('')}</tbody></table></div>`:`<div class="tw"><div class="empty">${tr('noData')}</div></div>`;
+ }
+ $('main').innerHTML=h;
+ const qi=$('q');if(qi)qi.oninput=e=>{q=e.target.value;const p=e.target.selectionStart;render();const n=$('q');n.focus();n.setSelectionRange(p,p)};
+ const f=$('fl');if(f){f.value=flt;f.onchange=e=>{flt=e.target.value;render()}}
+}
+function open_(h){$('modal').innerHTML=h;$('ov').classList.add('show')}
+function close_(){$('ov').classList.remove('show');$('modal').innerHTML=''}
+$('ov').addEventListener('mousedown',e=>{if(e.target.id==='ov')close_()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close_()});
+const fld=(l,id,v,t='text',x='')=>`<div class="f"><label for="${id}">${l}</label><input id="${id}" type="${t}" value="${esc(v)}" ${x}></div>`;
+const xb=()=>`<button class="x" onclick="close_()" aria-label="${esc(tr('close'))}">×</button>`;
+function edit(id){
+ const b=S.find(x=>x.id===id)||{bd:today(),hotel:'',addr:'',tel:'',code:'KT-'+today().slice(2).replace(/-/g,'')+'-'+String(S.length+1).padStart(3,'0'),guest:'',ci:'',co:'',adults:2,kids:0,rooms:1,type:'',rate:'',vat:true,bf:true,pol:tr('pol')};
+ open_(`<div class="mh"><h2>${id?tr('mEdit'):tr('mNew')}</h2>${xb()}</div><div class="mb">
+ <div class="sec">${tr('secH')}</div><div class="g2">${fld(tr('fHotel'),'f_hotel',b.hotel)}${fld(tr('fTel'),'f_tel',b.tel,'tel')}<div class="f w">${fld(tr('fAddr'),'f_addr',b.addr)}</div></div>
+ <div class="sec">${tr('secB')}</div><div class="g2">${fld(tr('fBd'),'f_bd',b.bd,'date')}${fld(tr('fCode'),'f_code',b.code)}${fld(tr('fGuest'),'f_guest',b.guest)}${fld(tr('fCi'),'f_ci',b.ci,'date')}${fld(tr('fCo'),'f_co',b.co,'date')}${fld(tr('fAd'),'f_ad',b.adults,'number','min="1"')}${fld(tr('fKd'),'f_kd',b.kids,'number','min="0"')}${fld(tr('fRm'),'f_rm',b.rooms,'number','min="1"')}${fld(tr('fType'),'f_type',b.type)}${fld(tr('fRate'),'f_rate',b.rate,'number','min="0" step="1000"')}</div>
+ <div class="sec">${tr('secInc')}</div><div class="ck"><label><input type="checkbox" id="f_vat" ${b.vat?'checked':''}>${tr('vat')}</label><label><input type="checkbox" id="f_bf" ${b.bf?'checked':''}>${tr('bf')}</label></div>
+ <div class="sec">${tr('secPol')}</div><div class="f"><textarea id="f_pol" rows="4" aria-label="${esc(tr('secPol'))}">${esc(b.pol)}</textarea></div><p id="err" role="alert" style="color:var(--red-d);margin:8px 0 0"></p></div>
+ <div class="mf"><button class="btn ghost" onclick="close_()">${tr('cancel')}</button><button class="btn" onclick="submit(${id||0})">${tr('save')}</button></div>`)
+}
+function submit(id){
+ const v=k=>$('f_'+k).value.trim();
+ const b={id:id||Date.now(),bd:v('bd'),hotel:v('hotel'),addr:v('addr'),tel:v('tel'),code:v('code'),guest:v('guest'),ci:v('ci'),co:v('co'),adults:Math.max(1,+v('ad')||1),kids:Math.max(0,+v('kd')||0),rooms:Math.max(1,+v('rm')||1),type:v('type'),rate:+v('rate'),vat:$('f_vat').checked,bf:$('f_bf').checked,pol:$('f_pol').value.trim(),pays:[]};
+ if(!b.bd||!b.hotel||!b.code||!b.guest||!b.ci||!b.co||!b.type||v('rate')===''||!(b.rate>=0))return $('err').textContent=tr('eReq');
+ if(b.co<=b.ci)return $('err').textContent=tr('eDate');
+ if(S.some(x=>x.code===b.code&&x.id!==b.id))return $('err').textContent=tr('eDup');
+ const o=S.find(x=>x.id===b.id);
+ if(o){b.pays=o.pays;S[S.indexOf(o)]=b}else S.unshift(b);
+ save();close_();render();toast(tr('saved'))
+}
+function del(id){const b=S.find(x=>x.id===id);open_(`<div class="mh"><h2>${tr('delT')}</h2>${xb()}</div><div class="mb">${tr('delQ').replace('{0}','<b>'+esc(b.code)+'</b> – '+esc(b.guest))}</div><div class="mf"><button class="btn ghost" onclick="close_()">${tr('keep')}</button><button class="btn red" onclick="S=S.filter(x=>x.id!==${id});save();close_();render()">${tr('delBtn')}</button></div>`)}
+function payM(id){
+ const b=S.find(x=>x.id===id),t=total(b),p=paid(b),r=Math.max(0,t-p),s=st(b);
+ open_(`<div class="mh"><h2>${tr('pT')} · ${esc(b.code)}</h2>${xb()}</div><div class="mb">
+ <div class="sum"><div>${tr('cTot')}<br><b>${vnd(t)}</b></div><div>${tr('cPaid')}<br><b>${vnd(p)}</b></div><div>${tr('cRem')}<br><b>${vnd(r)}</b></div><div>${tr('cSt')}<br><span class="tag ${s[0]}">${s[1]}</span></div></div>
+ <small style="color:var(--muted)">${esc(b.hotel)} · ${esc(b.guest)} · ${b.rooms} ${tr('rooms')} × ${nights(b)} ${tr('night',nights(b))} × ${vnd(b.rate)}</small>
+ <div class="sec" style="margin-top:14px">${tr('pHist')}</div>
+ ${b.pays.length?`<table class="pl">${b.pays.map((x,i)=>`<tr><td>${dmy(x.d)} · ${esc(mLbl(x.m))}<br><small style="color:var(--muted)">${esc(x.n)}</small></td><td><b>${vnd(x.a)}</b></td><td style="width:50px"><button class="btn sm red" onclick="rmPay(${id},${i})" aria-label="${esc(tr('delBtn'))}">×</button></td></tr>`).join('')}</table>`:`<div style="color:var(--muted)">${tr('pNone')}</div>`}
+ <div class="sec">${tr('pNew')}</div><div class="g2">${fld(tr('pDate'),'p_d',today(),'date')}${fld(tr('pAmt'),'p_a',r||'','number','min="0" step="1000"')}<div class="f"><label for="p_m">${tr('pMeth')}</label><select id="p_m"><option value="mBank">${tr('mBank')}</option><option value="mCash">${tr('mCash')}</option><option value="mCard">${tr('mCard')}</option></select></div>${fld(tr('pNote'),'p_n','')}</div><p id="err" role="alert" style="color:var(--red-d);margin:8px 0 0"></p></div>
+ <div class="mf"><button class="btn ghost" onclick="close_()">${tr('close')}</button><button class="btn" onclick="addPay(${id})">${tr('rec')}</button></div>`)
+}
+function addPay(id){const a=+$('p_a').value;if(!(a>0)||!$('p_d').value)return $('err').textContent=tr('pErr');
+ S.find(x=>x.id===id).pays.push({d:$('p_d').value,a,m:$('p_m').value,n:$('p_n').value.trim()});save();render();payM(id);toast(tr('pOk'))}
+function rmPay(id,i){S.find(x=>x.id===id).pays.splice(i,1);save();render();payM(id)}
+function voucher(id){
+ const b=S.find(x=>x.id===id),inc=[b.vat&&tr('vat'),b.bf&&tr('bf')].filter(Boolean).join(', ')||tr('vNone');
+ const r=(l,v)=>`<tr><td>${l}</td><td>${v}</td></tr>`;
+ const guests=b.adults+' '+tr('adults',b.adults)+(b.kids?', '+b.kids+' '+tr('kids',b.kids):'');
+ open_(`<div class="mh"><h2>${tr('vModal')} · ${esc(b.code)}</h2>${xb()}</div>
+ <div class="vw"><div id="voucher"><div class="vh"><img src="${logoSrc}" alt="KHANHTRAVEL"><div><b style="color:#00AAC9;font-size:14px">${CO.name}</b></div></div>
+ <h1>${tr('vTitle')}</h1><div class="sub">${tr('vSub')}</div><div class="code"><span>${esc(b.code)}</span></div>
+ <table>${r(tr('vBd'),dmy(b.bd))}${r(tr('vHotel'),'<b>'+esc(b.hotel)+'</b>')}${r(tr('vAddr'),esc(b.addr)||'–')}${r(tr('vTel'),esc(b.tel)||'–')}${r(tr('vGuest'),'<b>'+esc(b.guest)+'</b>')}${r(tr('vCi'),dmy(b.ci))}${r(tr('vCo'),dmy(b.co)+' ('+nights(b)+' '+tr('night',nights(b))+')')}${r(tr('vGuests'),guests)}${r(tr('vRooms'),b.rooms)}${r(tr('vType'),esc(b.type))}${r(tr('vInc'),inc)}</table>
+ <div class="pol"><b>${tr('secPol')}</b>${esc(b.pol===D.vi.pol||b.pol===D.en.pol?tr('pol'):b.pol)||'–'}</div>
+ <div class="nt">${tr('vNote')} · ${tr('vIssued')}: ${dmy(today())}</div>
+ <div class="ft"><b>${CO.name}</b><br>${tr('fAddrL')}: ${CO.addr}<br>${tr('fTelL')}: ${CO.tel} · ${tr('fFaxL')}: ${CO.fax}</div></div></div>
+ <div class="mf" style="border-radius:0 0 12px 12px"><button class="btn ghost" onclick="close_()">${tr('close')}</button><button class="btn" id="dl" onclick="pdf(${id})">${tr('dl')}</button></div>`)
+}
+const clean=s=>String(s).replace(/[\\\/:*?"<>|\u0000-\u001f]+/g,' ').replace(/\s+/g,' ').trim();
+const dm=d=>d.slice(8,10)+'.'+d.slice(5,7);
+const fileName=b=>`[CF] - ${clean(b.hotel)} - ${clean(b.guest)} - ${dm(b.ci)} ${dm(b.co)}.pdf`;
+async function pdf(id){
+ const b=S.find(x=>x.id===id),btn=$('dl');btn.disabled=true;btn.textContent=tr('dling');
+ try{
+  const dl=window.claude&&await claude.use('downloads');
+  if(!dl){toast(tr('dlNo'));return}
+  if(!window.html2canvas||!window.jspdf)throw new Error('lib');
+  await document.fonts.ready;
+  const c=await html2canvas($('voucher'),{scale:2,backgroundColor:'#fff',useCORS:true});
+  const doc=new jspdf.jsPDF('p','mm','a4'),h=c.height*210/c.width,img=c.toDataURL('image/jpeg',.95);
+  for(let i=0;i<Math.max(1,Math.ceil((h-1)/297));i++){if(i)doc.addPage();doc.addImage(img,'JPEG',0,-i*297,210,h)}
+  await dl.save({filename:fileName(b),data:doc.output('arraybuffer')});
+  toast(tr('dlOk'));
+ }catch(e){if(!e||e.code!=='declined')toast(tr('dlErr'))}
+ finally{const n=$('dl');if(n){n.disabled=false;n.textContent=tr('dl')}}
+}
+load();applyLang();
+</script>
+</body>
+</html>
