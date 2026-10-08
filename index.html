@@ -120,7 +120,8 @@ s.ci,s.co,s.due{display:inline-block;width:6px;height:6px;border-radius:50%;text
 <div class="toast" id="toast"></div>
 <script>
 const KEY='khanhtravel_fit_v1',LKEY='khanhtravel_fit_lang';
-const CO={name:'CÔNG TY TNHH DU LỊCH KHANH',addr:'635 Nguyễn Kiệm, Phường Đức Nhuận, TP.HCM',tel:'(028) 3845 6425',fax:'(028) 3842 1425'};
+const CO={vi:{name:'CÔNG TY TNHH DU LỊCH KHANH',addr:'635 Nguyễn Kiệm, Phường Đức Nhuận, TP.HCM'},en:{name:'KHANH TRAVEL COMPANY LIMITED',addr:'635 Nguyen Kiem Street, Duc Nhuan Ward, Ho Chi Minh City'},tel:'(028) 3845 6425',fax:'(028) 3842 1425'};
+const co=()=>CO[lang];
 const D={vi:{sub:'KHANHTRAVEL · Hệ thống điều hành khách lẻ',navBk:'Đặt dịch vụ',navPay:'Thanh toán',search:'Tìm khách sạn, mã đặt chỗ, tên khách…',allSt:'Mọi trạng thái thanh toán',allSt2:'Mọi trạng thái',un:'Chưa thanh toán',pa:'Thanh toán một phần',ok:'Đã thanh toán',create:'+ Tạo đặt dịch vụ',
 cCode:'Mã đặt chỗ',cHotel:'Khách sạn',cGuest:'Khách',cDates:'CI – CO',cRoom:'Phòng',cPay:'Thanh toán',cAct:'Thao tác',cBd:'Ngày đặt',voucher:'Phiếu XN',payBtn:'Thanh toán',editBtn:'Sửa',delBtn:'Xóa',empty:'Chưa có đặt dịch vụ nào phù hợp.',noData:'Không có dữ liệu.',
 night:n=>'đêm',adt:'NL',chd:'TE',adults:'người lớn',kids:'trẻ em',kT:'Tổng giá trị đặt dịch vụ',kP:'Đã thanh toán',kR:'Còn phải thanh toán',cTot:'Tổng tiền',cPaid:'Đã thanh toán',cRem:'Còn lại',cSt:'Trạng thái',rec:'Ghi nhận',
@@ -183,7 +184,7 @@ function applyLang(){
  document.documentElement.lang=lang;
  $('sub').textContent=tr('sub');$('n-bk').textContent=tr('navBk');$('n-pay').textContent=tr('navPay');
  $('l-vi').classList.toggle('on',lang==='vi');$('l-en').classList.toggle('on',lang==='en');
- $('foot').innerHTML=`<b>${CO.name}</b><span>${tr('fAddrL')}: ${CO.addr}</span><span>${tr('fTelL')}: ${CO.tel}</span><span>${tr('fFaxL')}: ${CO.fax}</span>`;
+ $('foot').innerHTML=`<b>${co().name}</b><span>${tr('fAddrL')}: ${co().addr}</span><span>${tr('fTelL')}: ${CO.tel}</span><span>${tr('fFaxL')}: ${CO.fax}</span>`;
  render()}
 function tab(v){view=v;$('n-bk').classList.toggle('on',v==='bk');$('n-pay').classList.toggle('on',v==='pay');render()}
 function list(){const k=q.trim().toLowerCase();return S.filter(b=>(!k||[b.hotel,b.code,b.guest].join(' ').toLowerCase().includes(k))&&(!flt||st(b)[0]===flt))}
@@ -258,12 +259,12 @@ function voucher(id){
  const r=(l,v)=>`<tr><td>${l}</td><td>${v}</td></tr>`;
  const guests=b.adults+' '+tr('adults',b.adults)+(b.kids?', '+b.kids+' '+tr('kids',b.kids):'');
  open_(`<div class="mh"><h2>${tr('vModal')} · ${esc(b.code)}</h2>${xb()}</div>
- <div class="vw"><div id="voucher"><div class="vh"><img src="${logoSrc}" alt="KHANHTRAVEL"><div><b style="color:#00AAC9;font-size:14px">${CO.name}</b></div></div>
+ <div class="vw"><div id="voucher"><div class="vh"><img src="${logoSrc}" alt="KHANHTRAVEL"><div><b style="color:#00AAC9;font-size:14px">${co().name}</b></div></div>
  <h1>${tr('vTitle')}</h1><div class="sub">${tr('vSub')}</div><div class="code"><span>${esc(b.code)}</span></div>
  <table>${r(tr('vBd'),dmy(b.bd))}${r(tr('vHotel'),'<b>'+esc(b.hotel)+'</b>')}${r(tr('vAddr'),esc(b.addr)||'–')}${r(tr('vTel'),esc(b.tel)||'–')}${r(tr('vGuest'),'<b>'+esc(b.guest)+'</b>')}${r(tr('vCi'),'<b>'+dt(b.ci,b.ciT)+'</b>')}${r(tr('vCo'),'<b>'+dt(b.co,b.coT)+'</b>'+' ('+nights(b)+' '+tr('night',nights(b))+')')}${r(tr('vGuests'),guests)}${r(tr('vRooms'),b.rooms)}${r(tr('vBed'),esc(b.bed)||'–')}${r(tr('vType'),esc(b.type))}${r(tr('vInc'),inc)}${b.dep>0?r(tr('vDep'),'<b>'+vnd(b.dep)+'</b>'):''}</table>
  ${polHtml(b)}${b.note?`<div class="pol note"><b>${tr('fNote')}</b>${esc(b.note)}</div>`:''}
  <div class="nt">${tr('vNote')} · ${tr('vIssued')}: ${dmy(today())}</div>
- <div class="ft"><b>${CO.name}</b><br>${tr('fAddrL')}: ${CO.addr}<br>${tr('fTelL')}: ${CO.tel} · ${tr('fFaxL')}: ${CO.fax}</div></div></div>
+ <div class="ft"><b>${co().name}</b><br>${tr('fAddrL')}: ${co().addr}<br>${tr('fTelL')}: ${CO.tel} · ${tr('fFaxL')}: ${CO.fax}</div></div></div>
  <div class="mf" style="border-radius:0 0 12px 12px"><button class="btn ghost" onclick="close_()">${tr('close')}</button><button class="btn" id="dl" onclick="pdf(${id})">${tr('dl')}</button></div>`)
 }
 const clean=s=>String(s).replace(/[\\\/:*?"<>|\u0000-\u001f]+/g,' ').replace(/\s+/g,' ').trim();
